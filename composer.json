@@ -19,5 +19,10 @@
         "psr-4": {
             "ridesoft\\Graph\\NTree\\": "src/Graph/"
         }
-    }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ridesoft\\Graph\\NTree\\Tests\\": "Tests/"
+        }
+    },
 }

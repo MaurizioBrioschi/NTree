@@ -1,5 +1,6 @@
 <?php
 
+namespace ridesoft\Graph\NTree;
 
 /**
  * Class Node
