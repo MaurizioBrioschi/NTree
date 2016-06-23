@@ -1,0 +1,23 @@
+{
+    "name": "ridesoft/n-tree",
+    "description": "Graph rapresentation in php for a multi children tree",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Maurizio Brioschi",
+            "email": "maurizio.brioschi@ridesoft.org"
+        }
+    ],
+    "require": {
+        "php": ">=5.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.8",
+        "escapestudios/symfony2-coding-standard": "~2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "ridesoft\\Graph\\NTree\\": "src/Graph/"
+        }
+    }
+}
