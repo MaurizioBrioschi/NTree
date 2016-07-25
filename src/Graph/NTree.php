@@ -246,12 +246,15 @@ class NTree
     /**
      * Get all the children of a node
      *
-     * @param $id
+     * @param int $id
+     * @param bool $sorted if i want to sort children
+     * @param string $sortedKey key value for sorting
      *
-     * @return null
+     * @return array|null children values or null if there are not children
      */
-    public function getAllChildren($id)
+    public function getAllChildren($id, $sorted = true, $sortedKey = 'position')
     {
+
         if (is_null($id)) {
             $node = $this->root;
         } else {
@@ -259,10 +262,41 @@ class NTree
         }
         $node = $node->getLeftChild();
         if (!is_null($node)) {
-            return $this->widthVisitByNodeId($node->getId());
+            $children = $this->widthVisitByNodeId($node->getId());
+            if ($sorted) {
+                $children = $this->quicksortSibling($children, $sortedKey);
+            }
+            return $children;
         }
 
         return null;
+    }
+
+    /**
+     * Sort Sibling recursively using a quicksort algorithm
+     *
+     * @param array $children
+     * @param $key
+     *
+     * @return array
+     */
+    protected function quicksortSibling(array $children, $key)
+    {
+
+        if (count($children) < 2) {
+            return $children;
+        }
+        $left = $right = array();
+        reset($array);
+        $pivot_key = key($children);
+        $pivot = array_shift($children);
+        foreach ($children as $k => $v) {
+            if ((int)$v[$key] < (int)$pivot[$key])
+                $left[$k] = $v;
+            else
+                $right[$k] = $v;
+        }
+        return array_merge($this->quicksortSibling($left, $key), array($pivot_key => $pivot), $this->quicksortSibling($right, $key));
     }
 }
 
