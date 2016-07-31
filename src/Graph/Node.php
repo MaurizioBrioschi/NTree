@@ -24,7 +24,7 @@ class Node
      */
     protected $rightSibling;
 
-    public function __construct(array $values = [], $parent = null)
+    public function __construct(array $values = [], Node $parent = null)
     {
         $this->values = $values;
         $this->parent = $parent;
@@ -35,7 +35,7 @@ class Node
      *
      * @return Node
      */
-    public function getParent()
+    public function getParent(): Node
     {
         return $this->parent;
     }
@@ -45,7 +45,7 @@ class Node
      *
      * @return Node|null
      */
-    public function getLeftChild()
+    public function getLeftChild(): Node
     {
         return $this->leftChild;
     }
@@ -55,7 +55,7 @@ class Node
      *
      * @return Node|null
      */
-    public function getRightSibling()
+    public function getRightSibling(): Node
     {
         return $this->rightSibling;
     }
@@ -67,7 +67,7 @@ class Node
      *
      * @return $this
      */
-    public function setLeftChild(Node $child)
+    public function setLeftChild(Node $child): Node
     {
         $this->leftChild = $child;
 
@@ -81,7 +81,7 @@ class Node
      *
      * @return $this
      */
-    public function setRightSibling(Node $sibling)
+    public function setRightSibling(Node $sibling): Node
     {
         $this->rightSibling = $sibling;
 
@@ -91,9 +91,9 @@ class Node
     /**
      * Get the id of the node
      *
-     * @return array
+     * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         if(array_key_exists('category_id', $this->values)){
             return $this->values['category_id'];
@@ -106,7 +106,7 @@ class Node
      *
      * @return array
      */
-    public function getValues()
+    public function getValues(): array
     {
         return $this->values;
     }

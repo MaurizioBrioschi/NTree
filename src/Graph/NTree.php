@@ -30,7 +30,7 @@ class NTree
      */
     protected $size;
 
-    public function __construct($name)
+    public function __construct(string $name)
     {
         $this->name = $name;
         $this->root = null;
@@ -43,11 +43,11 @@ class NTree
      * @param array $node
      * @param array $parent
      *
-     * @return $this
+     * @return NTree|null the NTree object or null if the insert fails
      *
      * @throws Exception
      */
-    public function insert(array $node, array $parent)
+    public function insert(array $node, array $parent): NTree
     {
         if (is_null($parent)) {
             //insert the root element and its son
@@ -60,7 +60,7 @@ class NTree
                 $child = new Node($node, $this->root);
                 $leftChild = $this->root->getLeftChild();
                 if (is_null($leftChild)) {
-                    $parentNode->setLeftChild(new Node($child, $this->root));
+                    $this->root->setLeftChild(new Node($child, $this->root));
                     return $this;
                 } else if ($leftChild->getId() != $child->getId()) {
                     $leftSibling = $this->getRightSibling($leftChild);
@@ -91,7 +91,7 @@ class NTree
 
             return $this;
         } else {
-            return false;
+            return null;
         }
     }
 
@@ -102,7 +102,7 @@ class NTree
      *
      * @return Node the right siblig or the node if the right sibling is null
      */
-    public function getRightSibling(Node $node)
+    public function getRightSibling(Node $node): Node
     {
         $rightSibling = $node->getRightSibling();
         if (is_null($rightSibling)) {
@@ -120,7 +120,7 @@ class NTree
      *
      * @return Node
      */
-    public function getRightSiblingParentRecursively(Node $node)
+    public function getRightSiblingParentRecursively(Node $node): Node
     {
         $rightSibling = $node->getRightSibling();
         if (is_null($rightSibling)) {
@@ -142,7 +142,7 @@ class NTree
      *
      * @return bool
      */
-    protected function search(Node $rootNode, $id)
+    protected function search(Node $rootNode, int $id): bool
     {
         //if the rootNode node is not present -> exist fail point
         if (is_null($rootNode)) {
@@ -171,7 +171,7 @@ class NTree
      *
      * @return Node|null
      */
-    protected function searchNode(Node $rootNode, $id)
+    protected function searchNode(Node $rootNode, int $id): Node
     {
         //if the rootNode node is not present -> exist fail point
         if (is_null($rootNode)) {
@@ -193,11 +193,11 @@ class NTree
     }
 
     /**
-     * Gwet the root node
+     * Get the root node
      *
      * @return Node|null
      */
-    public function getRootNode()
+    public function getRootNode(): Node
     {
         return $this->root;
     }
@@ -209,7 +209,7 @@ class NTree
      *
      * @return Node|null
      */
-    public function deepVisitByNodeId($id = null)
+    public function deepVisitByNodeId(int $id = null): Node
     {
         if (is_null($id)) {
             return $this->root;
@@ -227,7 +227,7 @@ class NTree
      *
      * @return array|null
      */
-    public function widthVisitByNodeId($id = null)
+    public function widthVisitByNodeId(int $id = null): Node
     {
 
         if (is_null($id)) {
@@ -244,7 +244,7 @@ class NTree
     }
 
     /**
-     * Get all the children of a node
+     * Get all the children values of a node
      *
      * @param int $id
      * @param bool $sorted if i want to sort children
@@ -252,7 +252,7 @@ class NTree
      *
      * @return array|null children values or null if there are not children
      */
-    public function getAllChildren($id, $sorted = true, $sortedKey = 'position')
+    public function getAllChildren(int $id, bool $sorted = true, string $sortedKey = 'position'): array
     {
 
         if (is_null($id)) {
@@ -278,9 +278,9 @@ class NTree
      * @param array $children
      * @param $key
      *
-     * @return array
+     * @return array Siblings values
      */
-    protected function quicksortSibling(array $children, $key)
+    protected function quicksortSibling(array $children, string $key): array
     {
 
         if (count($children) < 2) {
